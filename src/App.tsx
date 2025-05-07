@@ -61,7 +61,7 @@ function App() {
   }, []);
   return (
     <div className="w-full">
-      <div className="flex flex-col min-h-screen w-full">
+      <div className="flex flex-col min-h-[50vh] lg:min-h-screen w-full">
         <nav className="sticky top-0 px-4 py-2 z-10 border-b border-slate-100 bg-white">
           <div className="flex justify-between items-center">
             <span
@@ -93,7 +93,7 @@ function App() {
           </div>
         </nav>
         <div className="flex-grow px-4 md:px-8">
-          <div className="min-h-screen flex items-center justify-center">
+          <div className="min-h-[50vh] lg:min-h-screen flex items-center justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 content-center">
               <div className="flex flex-col justify-center h-full">
                 <Home />
