@@ -19,7 +19,11 @@ function App() {
   const menu: MenuItemType[] = [
     { id: "tech", label: t("Technologies"), elm: <Tech /> },
     { id: "work", label: t("Work"), elm: <Works /> },
-    { id: "projects", label: t("Projects"), elm: <Projects /> },
+    {
+      id: "projects",
+      label: t("Projects"),
+      elm: <Projects handleClick={() => handleMenuClick("contact")} />,
+    },
     { id: "contact", label: t("Contact"), elm: <Contact /> },
   ];
 
@@ -66,14 +70,14 @@ function App() {
             >
               PHAM DUC NAM
             </span>
-            <div className="hidden md:flex flex-wrap justify-center space-x-4">
+            <div className="flex flex-wrap justify-center space-x-4">
               <Language />
               {menu.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleMenuClick(item.id)}
                   className={cn(
-                    "h-9 px-3 cursor-pointer rounded-lg hover:bg-slate-50 font-medium"
+                    "hidden md:block h-9 px-3 cursor-pointer rounded-lg hover:bg-slate-50 font-medium"
                   )}
                 >
                   {item.label}
@@ -116,7 +120,7 @@ function App() {
           ))}
         </div>
         <div id="footer">
-          <div className="px-8 flex justify-between items-center text-slate-400">
+          <div className="px-8 flex flex-col md:flex-row justify-between items-center text-slate-400">
             <span>© 2021 - 2025 / PHAM DUC NAM.</span>
             <span>nampdb.bns2@gmail.com</span>
           </div>

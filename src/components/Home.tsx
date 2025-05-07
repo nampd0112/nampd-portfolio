@@ -5,14 +5,14 @@ const Home = () => {
   return (
     <div>
       <div className="flex flex-col">
-        <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 via-purple-600 to-blue-500 text-transparent bg-clip-text">
+        <h1 className="pb-2 text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 via-purple-600 to-blue-500 text-transparent bg-clip-text">
           {t("PHAM DUC NAM")}
         </h1>
         <ReactTyped
           strings={[`${t("FRONT-END DEVELOPER")}`]}
           typeSpeed={70}
           showCursor={false}
-          className="text-black text-3xl md:text-5xl font-bold"
+          className="text-black text-3xl md:text-5xl font-bold pb-2"
         />
         <span className="max-w-[600px] text-muted-foreground md:text-xl text-slate-500">
           {t(

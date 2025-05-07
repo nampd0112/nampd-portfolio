@@ -62,10 +62,10 @@ const Works = () => {
 
   return (
     <div className="pt-24">
-      <div className="text-center text-5xl font-bold">
+      <div className="text-center text-5xl font-bold pb-1">
         {t("Work Experience")}
       </div>
-      <div className="text-center text-2xl font-medium text-black/55 pt-1">
+      <div className="text-center text-2xl font-medium text-black/55 pt-1 pb-10">
         {t("What I have done so far")}
       </div>
       <div className="bg-white text-gray-900 min-h-screen p-4 flex items-center justify-center">
@@ -91,21 +91,23 @@ const Works = () => {
                     }`}
                   >
                     {isLeft ? (
-                      <div className="bg-gray-100 p-4 rounded-lg inline-block md:max-w-md">
+                      <div className="bg-gray-100 p-4 rounded-lg inline-block w-full md:max-w-md">
                         <h2 className="text-lg font-bold text-purple-600">
                           {item.title}
                         </h2>
-                        <p className="text-sm text-gray-600">
+                        <p className="font-medium text-gray-600">
                           {item.organization}
                         </p>
-                        <ul className="list-disc list-inside text-sm space-y-2 mt-4 text-gray-700">
+                        <ul className="list-disc list-inside text-sm space-y-2 mt-4 text-gray-600">
                           {item.points.map((point, i) => (
                             <li key={i}>{point}</li>
                           ))}
                         </ul>
                       </div>
                     ) : (
-                      <p className="text-sm text-gray-500">{item.duration}</p>
+                      <p className="font-medium text-gray-500">
+                        {item.duration}
+                      </p>
                     )}
                   </div>
                   <div
@@ -116,13 +118,15 @@ const Works = () => {
                     }`}
                   >
                     {isLeft ? (
-                      <p className="text-sm text-gray-500">{item.duration}</p>
+                      <p className="font-medium text-gray-500">
+                        {item.duration}
+                      </p>
                     ) : (
                       <div className="bg-gray-100 p-4 rounded-lg md:max-w-md">
                         <h2 className="text-lg font-bold text-purple-600">
                           {item.title}
                         </h2>
-                        <p className="text-sm text-gray-600">
+                        <p className="font-medium text-gray-600">
                           {item.organization}
                         </p>
                         <ul className="list-disc list-inside text-sm space-y-2 mt-4 text-gray-700">

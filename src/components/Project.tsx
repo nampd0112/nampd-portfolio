@@ -8,7 +8,10 @@ import vnReview from "../assets/vn_review.png";
 import vala from "../assets/vala.png";
 import default_img from "../assets/frontend.jpg";
 
-const Projects = () => {
+// icon
+import { ArrowRight } from "lucide-react";
+
+const Projects = ({ handleClick }: { handleClick: () => void }) => {
   const { t } = useTranslation();
 
   const listProject = [
@@ -49,7 +52,7 @@ const Projects = () => {
     {
       image: vala,
       name: "BKAV VALA",
-      tags: [t("Modern Web App"), t("Mobile"), "Android", "IOS"],
+      tags: [t("Modern Web App"), t("Mobile")],
       des: t(
         "Draft, review, publish, store and search for documents of rules, regulations, procedures... ... Manage and share internal contacts, customers, partners, suppliers..."
       ),
@@ -94,15 +97,24 @@ const Projects = () => {
             </div>
             <div className="flex flex-wrap items-center gap-4 px-6">
               {project.tags.map((tag, index) => (
-                <div className="px-2 bg-slate-100 rounded-full">
-                  <span key={index} className="text-sm">
+                <div className="px-2 bg-slate-100 rounded-full" key={index}>
+                  <span className="text-sm font-medium text-gray-600">
                     {tag}
                   </span>
                 </div>
               ))}
             </div>
             <div className="px-6 pt-4 pb-8">
-              <span>{project.des}</span>
+              <span className="text-gray-700">{project.des}</span>
+            </div>
+            <div className="px-6 pb-8">
+              <button
+                className="h-8 border-2 border-slate-200 bg-white rounded-xl px-2 text-sm font-medium flex items-center cursor-pointer"
+                onClick={handleClick}
+              >
+                {t("Continute")}
+                <ArrowRight size={16} className="ml-4" />
+              </button>
             </div>
           </div>
         ))}
