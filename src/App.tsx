@@ -1,23 +1,26 @@
-import type { MenuItemType } from "@/types/MenuType";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
+import Home from "./components/Home";
 import Tech from "./components/Tech";
 import Works from "./components/Works";
-import Home from "./components/Home";
-import Projects from "./components/Project";
 import Contact from "./components/Contact";
-
-// file
-import logo from "./assets/home.jpg";
-import cv from "./assets/CV_PHẠM ĐỨC NAM_FRONT-END DEVELOPER.pdf";
 import Language from "./components/Language";
+import type { MenuItemType } from "./types/MenuType";
+import Projects from "./components/Project";
+import { cn } from "./lib/utils";
 
-function App() {
+import cv from "./assets/CV_PHẠM ĐỨC NAM_FRONT-END DEVELOPER.pdf";
+import logo from "./assets/home.jpg";
+
+export default function App() {
   const { t } = useTranslation();
 
   const menu: MenuItemType[] = [
-    { id: "tech", label: t("Technologies"), elm: <Tech /> },
+    {
+      id: "tech",
+      label: t("Technologies"),
+      elm: <Tech srollId={sessionStorage.getItem("scrollToId")} />,
+    },
     { id: "work", label: t("Work"), elm: <Works /> },
     {
       id: "projects",
@@ -59,9 +62,34 @@ function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const OFFSET_THRESHOLD = 100;
+      if (window.scrollY === 0) {
+        sessionStorage.removeItem("scrollToId");
+        return;
+      }
+      for (const item of menu) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top > 0 && rect.top <= OFFSET_THRESHOLD) {
+            sessionStorage.setItem("scrollToId", item.id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [menu]);
+
   return (
-    <div className="w-full">
-      <div className="flex flex-col min-h-[50vh] lg:min-h-screen w-full">
+    <div className="w-full bg-slate-50">
+      <div className="flex flex-col min-h-[50vh] md:min-h-screen w-full">
         <nav className="sticky top-0 px-4 py-2 z-10 border-b border-slate-100 bg-white">
           <div className="flex justify-between items-center">
             <span
@@ -92,6 +120,7 @@ function App() {
             </div>
           </div>
         </nav>
+
         <div className="flex-grow px-4 md:px-8">
           <div className="min-h-[50vh] lg:min-h-screen flex items-center justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 content-center">
@@ -104,7 +133,10 @@ function App() {
                   >
                     {t("About me")}
                   </button>
-                  <button className="h-9 px-3 cursor-pointer rounded-lg border border-slate-700">
+                  <button
+                    className="h-9 px-3 cursor-pointer rounded-lg border border-slate-700"
+                    onClick={() => handleMenuClick("contact")}
+                  >
                     {t("Contact")}
                   </button>
                 </div>
@@ -119,6 +151,7 @@ function App() {
             </section>
           ))}
         </div>
+
         <div id="footer">
           <div className="px-8 flex flex-col md:flex-row justify-between items-center text-slate-400">
             <span>© 2021 - 2025 / PHAM DUC NAM.</span>
@@ -129,5 +162,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
