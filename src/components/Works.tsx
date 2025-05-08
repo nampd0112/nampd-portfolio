@@ -1,7 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { listTechs } from "@/constants";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Works = ({ scrollId }: { scrollId: string | null }) => {
   const { t } = useTranslation();
