@@ -13,7 +13,7 @@ const skills: Skill[] = [
   { id: "js-ts", name: "Javascript\nTypescript", value: 90 },
   { id: "html-css", name: "HTML / CSS", value: 95 },
   { id: "react", name: "React", value: 90 },
-  { id: "react-native", name: "React Native", value: 60 },
+  { id: "react-native", name: "React Native", value: 75 },
   { id: "next", name: "Next.js", value: 60 },
   { id: "css", name: "Tailwind CSS", value: 95 },
   { id: "git", name: "Git", value: 70 },
@@ -26,14 +26,14 @@ interface ProgressMap {
   [key: string]: number;
 }
 
-const Tech = ({ srollId }: { srollId: string | null }) => {
+const Tech = ({ scrollId }: { scrollId: string | null }) => {
   const { t } = useTranslation();
   const [progress, setProgress] = useState<ProgressMap>({});
   const hasAnimated = useRef(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!srollId || srollId !== "tech") {
+    if (!scrollId || scrollId !== "tech") {
       hasAnimated.current = false;
       setProgress({});
     }
@@ -63,10 +63,10 @@ const Tech = ({ srollId }: { srollId: string | null }) => {
     if (sectionRef.current) observer.observe(sectionRef.current);
 
     return () => observer.disconnect();
-  }, [srollId]);
+  }, [scrollId]);
 
   return (
-    <div ref={sectionRef} className="pt-20">
+    <div ref={sectionRef} className="pt-20 bg-slate-50 -mx-8 px-8">
       <div className="text-center text-3xl font-bold text-black">
         {t("Technologies I Can")}
       </div>

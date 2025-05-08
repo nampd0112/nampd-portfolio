@@ -1,9 +1,12 @@
 import { useTranslation } from "react-i18next";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+import { listTechs } from "@/constants";
 
-const Works = () => {
+const Works = ({ scrollId }: { scrollId: string | null }) => {
   const { t } = useTranslation();
 
-  const timelineData = [
+  const reversedTimelineData = [
     {
       title: t("Intern"),
       organization: "Vivoo Global",
@@ -58,22 +61,51 @@ const Works = () => {
         t("Ensure responsiveness and browser compatibility."),
       ],
     },
-  ];
+  ].reverse();
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => {
+      if (contentRef.current) observer.unobserve(contentRef.current);
+    };
+  }, [scrollId]);
 
   return (
-    <div className="pt-24">
+    <div className="pt-24 bg-white transition-all duration-1000">
       <div className="text-center text-5xl font-bold pb-1">
         {t("Work Experience")}
       </div>
       <div className="text-center text-2xl font-medium text-black/55 pt-1 pb-10">
         {t("What I have done so far")}
       </div>
-      <div className="bg-white text-gray-900 min-h-screen p-4 flex items-center justify-center">
+      <div
+        ref={contentRef}
+        className={cn(
+          "bg-white text-gray-900 min-h-screen p-4 flex items-center justify-center",
+          hasAnimated && "animate-slide-in"
+        )}
+      >
         <div className="max-w-4xl w-full">
           <div className="relative">
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-300"></div>
-
-            {timelineData.reverse().map((item, index) => {
+            {reversedTimelineData.map((item: any, index: number) => {
               const isLeft = index % 2 === 0;
               return (
                 <div
@@ -99,7 +131,7 @@ const Works = () => {
                           {item.organization}
                         </p>
                         <ul className="list-disc list-inside text-sm space-y-2 mt-4 text-gray-600">
-                          {item.points.map((point, i) => (
+                          {item.points.map((point: any, i: number) => (
                             <li key={i}>{point}</li>
                           ))}
                         </ul>
@@ -130,7 +162,7 @@ const Works = () => {
                           {item.organization}
                         </p>
                         <ul className="list-disc list-inside text-sm space-y-2 mt-4 text-gray-700">
-                          {item.points.map((point, i) => (
+                          {item.points.map((point: any, i: number) => (
                             <li key={i}>{point}</li>
                           ))}
                         </ul>

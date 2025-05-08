@@ -10,8 +10,16 @@ import default_img from "../assets/frontend.jpg";
 
 // icon
 import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
-const Projects = ({ handleClick }: { handleClick: () => void }) => {
+const Projects = ({
+  handleClick,
+  scrollId,
+}: {
+  handleClick: () => void;
+  scrollId: string | null;
+}) => {
   const { t } = useTranslation();
 
   const listProject = [
@@ -19,19 +27,25 @@ const Projects = ({ handleClick }: { handleClick: () => void }) => {
       image: default_img,
       name: t("International Payment System - Remittance Products"),
       tags: ["Web", "BPM", t("Internal")],
-      des: t("An project bpm integration"),
+      des: t(
+        "Drafting documents, circulating documents through levels, providing information, checking flow charts,..."
+      ),
     },
     {
       image: default_img,
       name: t("Money transfer system over 5 billion"),
       tags: ["Web", "BPM", t("Internal")],
-      des: t("An project bpm integration"),
+      des: t(
+        "Drafting documents, circulating documents through levels, providing information, checking flow charts,..."
+      ),
     },
     {
       image: default_img,
       name: t("Credit appraisal system"),
       tags: ["Web", "BPM", t("Internal")],
-      des: t("An project bpm integration"),
+      des: t(
+        "Drafting documents, circulating documents through levels, providing information, checking flow charts,..."
+      ),
     },
     {
       image: art,
@@ -75,15 +89,40 @@ const Projects = ({ handleClick }: { handleClick: () => void }) => {
     },
   ];
 
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (scrollId === "projects" && entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (contentRef.current) observer.observe(contentRef.current);
+    return () => {
+      if (contentRef.current) observer.unobserve(contentRef.current);
+    };
+  }, [scrollId]);
+
   return (
-    <div className="pt-20">
+    <div className="mt-20">
       <div className="text-center text-5xl font-bold">{t("Projects")}</div>
       <div className="text-center text-2xl font-medium text-black/55 pt-1">
         {t("(Approved for public release)")}
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {listProject.map((project, index) => (
+      <div
+        className={cn(
+          "mt-10 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+          hasAnimated && "animate-slide-down"
+        )}
+        ref={contentRef}
+      >
+        {listProject.map((project: any, index: number) => (
           <div
             key={index}
             className="w-full border border-slate-300 rounded-lg overflow-hidden shadow-sm"
@@ -96,7 +135,7 @@ const Projects = ({ handleClick }: { handleClick: () => void }) => {
               <span className="font-medium">{project.name}</span>
             </div>
             <div className="flex flex-wrap items-center gap-4 px-6">
-              {project.tags.map((tag, index) => (
+              {project.tags.map((tag: any, index: number) => (
                 <div className="px-2 bg-slate-100 rounded-full" key={index}>
                   <span className="text-sm font-medium text-gray-600">
                     {tag}

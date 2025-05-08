@@ -11,6 +11,7 @@ import { cn } from "./lib/utils";
 
 import cv from "./assets/CV_PHẠM ĐỨC NAM_FRONT-END DEVELOPER.pdf";
 import logo from "./assets/home.jpg";
+import { Toaster } from "sonner";
 
 export default function App() {
   const { t } = useTranslation();
@@ -19,13 +20,22 @@ export default function App() {
     {
       id: "tech",
       label: t("Technologies"),
-      elm: <Tech srollId={sessionStorage.getItem("scrollToId")} />,
+      elm: <Tech scrollId={sessionStorage.getItem("scrollToId")} />,
     },
-    { id: "work", label: t("Work"), elm: <Works /> },
+    {
+      id: "work",
+      label: t("Work"),
+      elm: <Works scrollId={sessionStorage.getItem("scrollToId")} />,
+    },
     {
       id: "projects",
       label: t("Projects"),
-      elm: <Projects handleClick={() => handleMenuClick("contact")} />,
+      elm: (
+        <Projects
+          handleClick={() => handleMenuClick("contact")}
+          scrollId={sessionStorage.getItem("scrollToId")}
+        />
+      ),
     },
     { id: "contact", label: t("Contact"), elm: <Contact /> },
   ];
@@ -88,7 +98,7 @@ export default function App() {
   }, [menu]);
 
   return (
-    <div className="w-full bg-slate-50">
+    <div className="w-full">
       <div className="flex flex-col min-h-[50vh] md:min-h-screen w-full">
         <nav className="sticky top-0 px-4 py-2 z-10 border-b border-slate-100 bg-white">
           <div className="flex justify-between items-center">
@@ -121,8 +131,8 @@ export default function App() {
           </div>
         </nav>
 
-        <div className="flex-grow px-4 md:px-8">
-          <div className="min-h-[50vh] lg:min-h-screen flex items-center justify-center">
+        <div className="flex-grow pt-4 md:pt-0 px-4 md:px-8">
+          <div className="min-h-[50vh] md:min-h-screen flex items-center justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 content-center">
               <div className="flex flex-col justify-center h-full">
                 <Home />
@@ -159,6 +169,7 @@ export default function App() {
           </div>
         </div>
       </div>
+      <Toaster position="bottom-center" />
     </div>
   );
 }
