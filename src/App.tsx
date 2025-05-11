@@ -12,6 +12,7 @@ import { cn } from "./lib/utils";
 import cv from "./assets/CV_PHẠM ĐỨC NAM_FRONT-END DEVELOPER.pdf";
 import logo from "./assets/home.jpg";
 import { Toaster } from "sonner";
+import { Facebook } from "lucide-react";
 
 export default function App() {
   const { t } = useTranslation();
@@ -55,6 +56,10 @@ export default function App() {
 
   const handleOpenCV = () => {
     window.open(cv, "_blank");
+  };
+
+  const handleOpenFB = () => {
+    window.open("https://www.facebook.com/debtorr.bns2/", "_blank");
   };
 
   useEffect(() => {
@@ -164,8 +169,16 @@ export default function App() {
 
         <div id="footer">
           <div className="px-8 flex flex-col md:flex-row justify-between items-center text-slate-400">
-            <span>© 2021 - 2025 / PHAM DUC NAM.</span>
-            <span>nampdb.bns2@gmail.com</span>
+            <span>Gmail: nampdb.bns2@gmail.com</span>
+            <div className="flex items-center gap-4 pb-1">
+              <span>{t("SN")}</span>
+              <div className="h-[1px] w-10 bg-slate-400" />
+              <Facebook
+                color="#90a1b9"
+                className="cursor-pointer"
+                onClick={handleOpenFB}
+              />
+            </div>
           </div>
         </div>
       </div>
