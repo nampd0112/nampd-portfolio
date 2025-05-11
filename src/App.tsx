@@ -59,7 +59,7 @@ export default function App() {
   };
 
   const handleOpenFB = () => {
-    window.open("https://www.facebook.com/debtorr.bns2/", "_blank");
+    window.open("https://www.facebook.com/debtor.bns2/", "_blank");
   };
 
   useEffect(() => {
