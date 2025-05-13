@@ -9,7 +9,7 @@ import type { MenuItemType } from "./types/MenuType";
 import Projects from "./components/Project";
 import { cn } from "./lib/utils";
 
-import cv from "./assets/CV_PHAM-DUC-NAM_FRONT-END DEVLOPER.pdf";
+import cv from "./assets/CV_PHAM-DUC-NAM_FRONT-END_DEVLOPER.pdf";
 import logo from "./assets/home.jpg";
 import { Toaster } from "sonner";
 import { Facebook } from "lucide-react";
